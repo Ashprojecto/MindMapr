@@ -22,7 +22,7 @@ export default function Canvas() {
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
   const [scale, setScale] = useState(1);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const [isPanning, setIsPanning] = useState(false);
+  const [_isPanning, setIsPanning] = useState(false);
 
   // Load from localStorage
   useEffect(() => {

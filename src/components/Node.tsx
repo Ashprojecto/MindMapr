@@ -15,7 +15,6 @@ type NodeProps = {
 }
 
 export default function Node({
-  id,
   x,
   y,
   text,
