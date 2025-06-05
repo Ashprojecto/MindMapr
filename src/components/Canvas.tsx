@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Node from "./Node";
 
@@ -22,7 +22,10 @@ export default function Canvas() {
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
   const [scale, setScale] = useState(1);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const [_isPanning, setIsPanning] = useState(false);
+  //const [_isPanning, setIsPanning] = useState(false);
+
+  const isPanningRef = useRef(false)
+  isPanningRef.current = true;
 
   // Load from localStorage
   useEffect(() => {
@@ -100,7 +103,7 @@ export default function Canvas() {
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     if ((e.target as HTMLElement).closest("[data-node]")) return;
 
-    setIsPanning(true);
+    isPanningRef.current = true;
     const startX = e.clientX;
     const startY = e.clientY;
     const startOffset = { ...offset };
@@ -112,7 +115,7 @@ export default function Canvas() {
     };
 
     const handleMouseUp = () => {
-      setIsPanning(false);
+      isPanningRef.current = false;
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseup", handleMouseUp);
     };
